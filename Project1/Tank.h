@@ -1,0 +1,23 @@
+#ifndef TANK_H
+#define TANK_H
+#include "sprite.h"
+namespace pilchiller
+{
+    class Tank:public sprite
+    {
+    public:
+        Tank(ALLEGRO_BITMAP* base_bitmap,ALLEGRO_BITMAP* turret_bitmap,double turret_a, std::size_t world_width, std::size_t world_height, float initial_x, float initial_y);
+        virtual void draw(ALLEGRO_DISPLAY *display);
+        virtual void rotate_turret_up();
+        virtual void rotate_turret_down();
+       // virtual double get_turret_angle();
+        virtual void advance_by_time(double dt);
+
+
+    protected:
+        ALLEGRO_BITMAP* base;
+        ALLEGRO_BITMAP* turret;
+        double turret_angle;
+    };
+}
+#endif

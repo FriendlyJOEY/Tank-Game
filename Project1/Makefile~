@@ -1,0 +1,25 @@
+ALLEGRO_DIR=/usr/include
+export PKG_CONFIG_PATH=$(ALLEGRO_DIR)/lib/pkgconfig
+CFLAGS=$(shell export PKG_CONFIG_PATH=$(PKG _CONFIG_PATH) && pkg-config --cflags allegro-5 allegro_main-5 allegro_primitives-5 allegro_image-5 allegro_dialog-5 allegro_primitives-5)
+LDFLAGS=$(shell export PKG_CONFIG_PATH=$(PKG _CONFIG_PATH) && pkg-config --libs allegro-5 allegro_main-5 allegro_primitives-5 allegro_image-5 allegro_dialog-5 allegro_primitives-5)
+
+main: main.o sprite.o world.o Tank.o shell.o
+	g++ -ggdb -o main main.o sprite.o world.o Tank.o ${LDFLAGS}
+
+main.o: main.C sprite.h world.h
+	g++ -ggdb -c main.C ${CFLAGS}
+
+sprite.o: sprite.h sprite.C
+	g++ -ggdb -c sprite.C ${CFLAGS}
+
+world.o: world.h sprite.h world.C
+	g++ -ggdb -c world.C ${CFLAGS}
+
+Tank.o: Tank.h Tank.C sprite.h
+	g++ -ggdb -c Tank.C ${CFLAGS}
+
+shell.o: shell.h shell.C sprite.h
+	g++ -ggdb -c shell.C ${CFLAGS}
+
+clean:
+	rm -f *.o main

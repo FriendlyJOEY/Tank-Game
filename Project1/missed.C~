@@ -1,0 +1,33 @@
+#include "missed.h"
+#include "sprite.h"
+#include <iostream>
+namespace pilchiller
+{
+    missed::missed(ALLEGRO_BITMAP* miss_expl,std::size_t world_width, std::size_t world_height, float initial_x, float initial_y):sprite(world_width,world_height,initial_x, initial_y)
+    {
+    	dr=true;
+        x_pos=initial_x;
+        y_pos=initial_y;
+        m_explosion=miss_expl;
+        count=300;
+    }
+
+    missed::~missed()
+    {
+
+    }
+
+    void missed::draw(ALLEGRO_DISPLAY *display){
+    	if(dr==true)
+        	al_draw_bitmap(m_explosion,x_pos,y_pos,0);
+    }
+
+    void missed::advance_by_time(double dt){
+    	if(count<0){
+    		dr=false;
+    		return;
+    	}
+    	std::cout<<count<<std::endl;
+    	count-=1000*dt;
+    }
+}
